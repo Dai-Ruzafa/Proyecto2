@@ -299,7 +299,7 @@ main {
     }
 
     .header-mobile .logo {
-        color: var(--clr-gray);
+        color: white;
     }
 
     .open-menu, .close-menu {
