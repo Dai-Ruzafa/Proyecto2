@@ -304,7 +304,7 @@ main {
 
     .open-menu, .close-menu {
         background-color: transparent;
-        color: var(--clr-gray);
+        color: white;
         border: 0;
         font-size: 2rem;
         cursor: pointer;
