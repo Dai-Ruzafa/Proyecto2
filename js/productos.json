@@ -130,5 +130,15 @@
     },
     "precio": 20000
 
+},
+{
+    "id": "accesorios",
+    "titulo": "Accesorios",
+    "imagen": "https://www.anafarmex.com.mx/wp-content/uploads/2019/07/proximamente.png",
+    "categoria": {
+        "nombre": "Accesorio",
+        "id": "accesorios"
+    },
+    "precio": 0
 }
 ]
