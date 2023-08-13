@@ -139,3 +139,45 @@ function comprarCarrito() {
     contenedorCarritoComprado.classList.remove("disabled");
 
 }
+
+botonComprar.addEventListener("click", iniciarPago);
+
+async function iniciarPago() {
+  // Realizar una solicitud al servidor para obtener la preferencia de pago
+  const response = await fetch('/obtener-preferencia', {
+    method: 'POST', // Método adecuado
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(productosEnCarrito) // Enviar los productos al servidor
+  });
+
+  const data = await response.json();
+  
+  if (data.preferenceId) {
+    const checkout = mp.checkout({
+      preference: {
+        id: data.preferenceId
+      }
+    });
+
+    checkout.render({
+      container: '#carrito-acciones-comprar', // ID del contenedor donde se mostrará el botón de pago
+    });
+  }
+
+}app.post('/generar-preferencia', async (req, res) => {
+  try {
+    // Lógica para generar la preferencia de pago utilizando el SDK de Mercado Pago y los datos de req.body
+    const preference = await generarPreferencia(req.body);
+    
+    // Enviar la preferencia generada como respuesta
+    res.json({ preferenceId: preference.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al generar la preferencia de pago' });
+  }
+});
+
+const mp = new MercadoPago('TEST-4809246128051863-081219-52f144818ccf859b9fe9309871c1ffd0-227320166');
+const bricksBuilder = mp.bricks();
